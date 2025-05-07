@@ -27,8 +27,9 @@ final class NavigationRouter: ObservableObject {
     /// 로그인 성공 후 홈으로
     func toHome() {
         selectedTab = .home
-        path = NavigationPath([ Route.home ])   // ← Route.home으로 명시
+        //path = NavigationPath([ Route.home ])   // ← Route.home으로 명시
         isLoggedIn = true
+        path = NavigationPath() 
     }
 
     /// 로그아웃 또는 로그인 화면으로

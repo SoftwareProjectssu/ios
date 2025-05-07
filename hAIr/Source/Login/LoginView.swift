@@ -1,24 +1,17 @@
-//
-//  LoginView.swift
-//  hAIr
-//
-//  Created by 한태빈 on 5/7/25.
-//
-
 import SwiftUI
 
 struct LoginView: View {
+    @EnvironmentObject var router: NavigationRouter
+
     var body: some View {
-        VStack(alignment: .leading){
+        VStack(alignment: .leading) {
             loginInfo
             loginButton
         }
-        .padding(.horizontal, 90)   // 좌우 90pt 여백
+        .padding(.horizontal, 90)
     }
-}
 
-private var loginInfo: some View {
-    Group{
+    private var loginInfo: some View {
         VStack(alignment: .leading) {
             Image("logo")
                 .resizable()
@@ -30,19 +23,29 @@ private var loginInfo: some View {
             Spacer().frame(height: 180)
         }
     }
-}
 
-private var loginButton: some View {
-    VStack(alignment: .center){
-        Image("kakaologin")
-            .resizable()
-            .frame(width: 305, height: 45)
-            .padding(.bottom,15)
-        Image("applelogin")
-            .resizable()
-            .frame(width: 305, height: 45)
+    private var loginButton: some View {
+        VStack(alignment: .center) {
+            Button {
+                router.toHome()
+            } label: {
+                Image("kakaologin")
+                    .resizable()
+                    .frame(width: 305, height: 45)
+            }
+            .padding(.bottom, 15)
+
+            Button {
+                router.toHome()
+            } label: {
+                Image("applelogin")
+                    .resizable()
+                    .frame(width: 305, height: 45)
+            }
+        }
     }
 }
+
 #Preview {
-    LoginView()
+    LoginView().environmentObject(NavigationRouter()) // ← 프리뷰에서도 router 주입
 }
