@@ -1,0 +1,25 @@
+# === Xcode 자동 생성 파일 무시 ===
+*.xcuserstate
+*.xccheckout
+*.xcscmblueprint
+
+# Xcode 사용자 설정
+*.xcworkspace/
+*.xcuserdata/
+*.xcscheme
+*.xcschememanagement.plist
+
+# Derived data
+DerivedData/
+build/
+
+# Swift Package Manager
+.swiftpm/
+.build/
+
+# CocoaPods
+Pods/
+Podfile.lock
+
+# macOS 시스템 파일
+.DS_Store
