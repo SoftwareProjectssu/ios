@@ -13,7 +13,7 @@ class TokenManager {
     static let shared = TokenManager()
     private init() {}
     
-    private let memberService = MembersService()
+   // private let memberService = MembersService()
     // 제한 시간 설정
     private let THREE_HOURS: TimeInterval = 3 * 60 * 60
     
@@ -75,24 +75,24 @@ class TokenManager {
                 }
                 return
             }
-
-            print("리프레시 토큰을 사용하여 액세스 토큰 재발급 시도")
-
-            let reissueRequestDTO = ReissueTokenRequestDTO(refreshToken: refreshToken)
             
-            self.memberService.reissueToken(data: reissueRequestDTO) { result in
-                DispatchQueue.main.async {
-                    switch result {
-                    case .success(let response):
-                        KeychainHelper.shared.save(response.accessToken, forKey: "accessToken")
-                        KeychainHelper.shared.save(response.refreshToken, forKey: "refreshToken")
-                        completion(true) // 토큰 재발급 성공
-                    case .failure(_):
-                        completion(false) // 재발급 실패
-                    }
-                }
-            }
+            print("리프레시 토큰을 사용하여 액세스 토큰 재발급 시도")
+            
+            //let reissueRequestDTO = ReissueTokenRequestDTO(refreshToken: refreshToken)
+            
+            /* self.memberService.reissueToken(data: reissueRequestDTO) { result in
+             DispatchQueue.main.async {
+             switch result {
+             case .success(let response):
+             KeychainHelper.shared.save(response.accessToken, forKey: "accessToken")
+             KeychainHelper.shared.save(response.refreshToken, forKey: "refreshToken")
+             completion(true) // 토큰 재발급 성공
+             case .failure(_):
+             completion(false) // 재발급 실패
+             }
+             }
+             }
+             }*/
         }
     }
-
 }

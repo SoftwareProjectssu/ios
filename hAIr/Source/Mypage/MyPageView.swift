@@ -8,6 +8,7 @@
 import SwiftUI
 
 struct MyPageView: View {
+    @State private var nickname: String = "@nickname"
     let savedHair: [String] = Array(repeating: "", count: 3)
     let dyedHair: [String] = Array(repeating: "", count: 3)
 
@@ -24,12 +25,15 @@ struct MyPageView: View {
                                 .resizable()
                                 .scaledToFit()
                                 .frame(width: 130,height: 42)
+                                .padding(.horizontal,38 )
+                            
                             Spacer()
                         }
+                        .padding(.bottom, 38)
 
                         // 닉네임 & 메뉴
                         HStack {
-                            Text("@nick_name")
+                            Text(nickname)
                                 .font(.headline)
                             Spacer()
                             Button(action: {
@@ -37,14 +41,17 @@ struct MyPageView: View {
                             }) {
                                 Image(systemName: "line.3.horizontal")
                                     .font(.title3)
+                                    
                             }
                         }
                         .padding(.horizontal)
                         .padding(.vertical, 10)
+                        .padding(.bottom, 38)
 
                         VStack(alignment: .leading, spacing: 16) {
                             HairSectionView(title: "저장한 머리", items: savedHair)
                             HairSectionView(title: "염색한 머리", items: dyedHair)
+                                .padding(.top, 31)
                         }
                         .padding(.horizontal)
 
@@ -67,16 +74,24 @@ struct HairSectionView: View {
                 Text(title)
                     .font(.headline)
                 Spacer()
-                Text("더보기")
-                    .font(.subheadline)
-                    .foregroundColor(.gray)
+                Button(action: {
+                    // TODO: Navigate to detailed view
+                }) {
+                    Text("더보기")
+                        .font(.subheadline)
+                        .foregroundColor(.gray)
+                }
             }
 
             LazyVGrid(columns: Array(repeating: GridItem(.flexible()), count: 3), spacing: 8) {
                 ForEach(items.indices, id: \.self) { _ in
-                    RoundedRectangle(cornerRadius: 8)
-                        .fill(Color.gray.opacity(0.3))
-                        .frame(width: 100, height: 100)
+                    Button(action: {
+                        // TODO: Show hair detail
+                    }) {
+                        RoundedRectangle(cornerRadius: 8)
+                            .fill(Color.gray.opacity(0.3))
+                            .frame(width: 100, height: 100)
+                    }
                 }
             }
         }
