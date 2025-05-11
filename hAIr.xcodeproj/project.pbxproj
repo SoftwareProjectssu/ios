@@ -6,6 +6,10 @@
 	objectVersion = 77;
 	objects = {
 
+/* Begin PBXBuildFile section */
+		483BA7E02DD0DA0D007C0053 /* Moya in Frameworks */ = {isa = PBXBuildFile; productRef = 483BA7DF2DD0DA0D007C0053 /* Moya */; };
+/* End PBXBuildFile section */
+
 /* Begin PBXFileReference section */
 		1EFB02C22DCB91BE002C557F /* hAIr.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = hAIr.app; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -36,6 +40,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				483BA7E02DD0DA0D007C0053 /* Moya in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -78,6 +83,7 @@
 			);
 			name = hAIr;
 			packageProductDependencies = (
+				483BA7DF2DD0DA0D007C0053 /* Moya */,
 			);
 			productName = hAIr;
 			productReference = 1EFB02C22DCB91BE002C557F /* hAIr.app */;
@@ -107,6 +113,9 @@
 			);
 			mainGroup = 1EFB02B92DCB91BE002C557F;
 			minimizedProjectReferenceProxies = 1;
+			packageReferences = (
+				483BA7DE2DD0DA0D007C0053 /* XCRemoteSwiftPackageReference "Moya" */,
+			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 1EFB02C32DCB91BE002C557F /* Products */;
 			projectDirPath = "";
@@ -337,6 +346,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		483BA7DE2DD0DA0D007C0053 /* XCRemoteSwiftPackageReference "Moya" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Moya/Moya";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 15.0.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		483BA7DF2DD0DA0D007C0053 /* Moya */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 483BA7DE2DD0DA0D007C0053 /* XCRemoteSwiftPackageReference "Moya" */;
+			productName = Moya;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 1EFB02BA2DCB91BE002C557F /* Project object */;
 }
