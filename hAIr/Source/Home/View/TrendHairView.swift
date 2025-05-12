@@ -1,15 +1,16 @@
 import SwiftUI
 
 struct TrendHairView: View {
-    @StateObject private var viewModel = TrendHairViewModel()
+    @ObservedObject var viewModel: TrendHairViewModel
     @State private var showCard: Bool = false
 
     var body: some View {
-        VStack {
-            Text("최신 유행 머리")
+        VStack(spacing: 0) {
+            Text("에디터가 추천하는 최신 유행 머리스타일")
                 .font(.pretendard(.semibold, size: 16))
                 .frame(maxWidth: .infinity, alignment: .leading)
                 .padding(.horizontal)
+                .padding(.top, 32)
 
             TabView(selection: $viewModel.currentPage) {
                 ForEach(viewModel.items.indices, id: \.self) { index in
@@ -17,7 +18,7 @@ struct TrendHairView: View {
                         Image(viewModel.items[index].imageName)
                             .resizable()
                             .scaledToFill()
-                            .frame(width: 300, height: 350)
+                            .frame(width: 320, height: 400)
                             .clipped()
                             .cornerRadius(12)
                             .onTapGesture {
@@ -45,12 +46,12 @@ struct TrendHairView: View {
             HStack(spacing: 8) {
                 ForEach(viewModel.items.indices, id: \.self) { index in
                     Circle()
-                        .fill(index == viewModel.currentPage ? Color.black : Color.white)
+                        .fill(index == viewModel.currentPage ? Color.navy : Color.buttongray)
                         .overlay(Circle().stroke(Color.black, lineWidth: 0.5))
                         .frame(width: 8, height: 8)
                 }
             }
-            .padding(.top, 8)
+            .padding(.top, 32)
         }
         .overlay(
             Group {
@@ -66,7 +67,7 @@ struct TrendHairView: View {
 
                     TrendHairCardView(item: viewModel.items[viewModel.currentPage])
                         .transition(.move(edge: .bottom))
-                        .offset(y: 90)
+                        .offset(y: 200)
                         .zIndex(2)
                 }
             }
