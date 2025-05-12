@@ -1,20 +1,24 @@
+// TabbarView.swift
+
 import SwiftUI
 
 struct TabbarView: View {
     @EnvironmentObject var router: NavigationRouter
 
-    private let tabs: [Route] = [.home, .ai, .myHair, .myPage]
+    private let tabs:   [Route] = [.home, .ai, .myHair, .myPage]
     private let icons = ["home", "ai", "myhair", "mypage"]
     private let titles = ["Home", "AI Recommand", "My Hair Style", "My Page"]
 
     var body: some View {
         GeometryReader { geometry in
-            // 로그인 상태 등에서 selectedTab이 탭에 포함되지 않으면 렌더링 자체 안함
+            // 로그인 상태 등에서 selectedTab이 탭에 포함되지 않으면 뷰 자체를 숨깁니다
             if tabs.contains(router.selectedTab) {
                 ZStack(alignment: .bottom) {
                     VStack(spacing: 0) {
+                        // Top bar
                         topBar
 
+                        // 콘텐츠 영역
                         ZStack {
                             Color.white
                             contentView
@@ -22,36 +26,34 @@ struct TabbarView: View {
                         .frame(maxWidth: .infinity, maxHeight: .infinity)
                     }
 
+                    // 탭 바
                     tabBar
                         .frame(width: geometry.size.width, height: 83)
                         .background(Color.white)
                         .shadow(color: .black.opacity(0.05), radius: 5, y: -2)
                 }
                 .edgesIgnoringSafeArea(.bottom)
-                .background(Color.white)
             } else {
-                EmptyView() // login 상태 등에서는 TabbarView 자체 숨김
+                EmptyView()
             }
         }
     }
 
-    // MARK: - TopBar
+    // MARK: — Top Bar
     private var topBar: some View {
-        TopBarView(title: titles[currentIndex])
-            .environmentObject(router)
+        TopBarView()
     }
 
-    // MARK: - Content
+    // MARK: — Content
     @ViewBuilder
     private var contentView: some View {
         if let index = tabs.firstIndex(of: router.selectedTab) {
             switch tabs[index] {
-            case .home:   HomeView()
-            case .ai:     AIView()
-            case .myHair: MyHairView()
-            case .myPage: MyPageView()
+            case .home:    HomeView()
+            case .ai:      AIView()
+            case .myHair:  MyHairView()
+            case .myPage:  MyPageView()
             @unknown default:
-                // 이 상황은 절대 발생하지 않지만, Swift의 switch exhaustiveness를 만족시키기 위해 추가
                 EmptyView()
             }
         } else {
@@ -59,13 +61,12 @@ struct TabbarView: View {
         }
     }
 
-
-    // MARK: - TabBar
+    // MARK: — Tab Bar
     private var tabBar: some View {
         HStack(spacing: 20) {
             ForEach(Array(zip(tabs.indices, tabs)), id: \.0) { idx, route in
                 Button {
-                    router.selectedTab = route  // push 대신 단순 탭 전환
+                    router.selectedTab = route
                 } label: {
                     Image(icons[idx])
                         .renderingMode(.template)
@@ -77,29 +78,37 @@ struct TabbarView: View {
                 .buttonStyle(.plain)
             }
         }
-        .frame(height: 83)
     }
 
-    // MARK: - Helpers
+    // MARK: — Helper
     private var currentIndex: Int {
         tabs.firstIndex(of: router.selectedTab) ?? 0
     }
 }
 
-struct TopBarView: View {
-    @EnvironmentObject var router: NavigationRouter
-    var title: String
+// ──────────────────────────────────────────────────────────────────────────────
+// TopBarView.swift
 
+struct TopBarView: View {
     var body: some View {
         HStack {
-            Text(title)
-                .padding(.leading, 20)
-                .font(.pretendard(.bold, size: 24))
+            Text("hA.Ir")
+                .font(.pretendard(.bold, size: 28))
+                .foregroundStyle(Color(.navy))
             Spacer()
         }
+        .padding(.leading, 20)
+        .frame(height: 50)
         .frame(maxWidth: .infinity, alignment: .leading)
-        .frame(height: 40)
         .background(Color.white)
+        // ────────────────────────────────────────
+        // TabBar와 비슷한 그림자 추가
+        .shadow(
+            color: .black.opacity(0.05),  // 그림자 색상
+            radius: 5,                     // 번짐(퍼짐) 반경
+            x: 0,                          // 수평 오프셋
+            y: 2                           // 수직 오프셋 (양수면 아래로)
+        )
     }
 }
 
@@ -116,7 +125,7 @@ struct TabbarView_Previews: PreviewProvider {
 
 struct TopBarView_Previews: PreviewProvider {
     static var previews: some View {
-        TopBarView(title: "홈").environmentObject(NavigationRouter())
+        TopBarView()
     }
 }
 #endif

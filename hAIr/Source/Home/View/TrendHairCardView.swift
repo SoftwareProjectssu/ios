@@ -14,25 +14,25 @@ struct TrendHairCardView: View {
             Capsule()
                 .fill(Color.gray.opacity(0.4))
                 .frame(width: 40, height: 5)
+                .frame(maxWidth: .infinity, alignment: .center)
                 .padding(.top, 8)
 
             Text(item.description)
-                .font(.title3)
-                .bold()
+                .font(.pretendard(.bold, size: 20))
 
             Text(item.detail)
-                .font(.body)
+                .font(.pretendard(.semibold, size: 16))
 
             Spacer()
         }
         .padding()
         .frame(maxWidth: .infinity)
-        .frame(height: 370)
+        .frame(height: 350)
         .background(Color.buttongray) // 버튼 회색
         .cornerRadius(20, corners: [.topLeft, .topRight])
         .shadow(radius: 10)
-        .ignoresSafeArea(edges: .bottom)
-    }
+        .padding(.bottom,0)
+                 }
 }
 
 extension View {

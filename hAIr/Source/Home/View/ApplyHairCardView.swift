@@ -14,6 +14,7 @@ struct ApplyHairCardView: View {
             Capsule()
                 .fill(Color.gray.opacity(0.4))
                 .frame(width: 40, height: 5)
+                .frame(maxWidth: .infinity, alignment: .center)
                 .padding(.top, 8)
 
             Text(item.description)
@@ -27,7 +28,7 @@ struct ApplyHairCardView: View {
         }
         .padding()
         .frame(maxWidth: .infinity)
-        .frame(height: 370)
+        .frame(height: 350)
         .background(Color.buttongray) // 버튼 회색
         .cornerRadius(20, corners: [.topLeft, .topRight])
         .shadow(radius: 10)

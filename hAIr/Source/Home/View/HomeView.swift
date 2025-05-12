@@ -5,61 +5,34 @@
 //  Created by 한태빈 on 5/7/25.
 //
 
-import SwiftUI
+// HomeView.swift
 
 import SwiftUI
-
-enum HomeTab: String, CaseIterable, Identifiable {
-    case trend = "new trend"
-    case apply = "most apply"
-    case magazine = "Magazine"
-
-    var id: String { self.rawValue }
-}
 
 struct HomeView: View {
-    @State private var selectedTab: HomeTab = .trend
+    @StateObject private var vm = HomeViewModel()
 
     var body: some View {
         VStack(spacing: 0) {
-            HStack{
-                Spacer().frame(width: 10)
-                ForEach(HomeTab.allCases) { tab in
-                    VStack {
-                        Button {
-                            selectedTab = tab
-                        } label: {
-                            Text(tab.rawValue)
-                                .font(.system(size: 16, weight: .semibold))
-                                .foregroundColor(selectedTab == tab ? .black : .gray)
-                        }
-                        .padding(.horizontal)
+            // 1) 공통 세그먼트 컨트롤
+            SegmentControl(selection: $vm.selectedTab)
 
-                        if selectedTab == tab {
-                            Capsule()
-                                .fill(Color.navy)
-                                .frame(height: 3)
-                        } else {
-                            Color.clear.frame(height: 3)
-                        }
-                    }
-                }
-                Spacer()
-            }
-            .padding(.top, -50) // ← TopBar 기준 여백 고정
-            .padding(.bottom, 8)
-            // 탭에 따른 화면 전환
-            switch selectedTab {
+            // 2) 탭별 화면 전환
+            switch vm.selectedTab {
             case .trend:
-                TrendHairView().frame(minHeight: 600)
+                TrendHairView(viewModel: vm.trendVM)
             case .apply:
-                ApplyHairView().frame(minHeight: 600)
+                ApplyHairView(viewModel: vm.applyVM)
             case .magazine:
-                MagazineView().frame(minHeight: 600)
+                MagazineView()
             }
         }
+        // 화면 전체를 채우고, VStack 안의 내용은 항상 위쪽에 정렬
+        .frame(maxWidth: .infinity, maxHeight: .infinity, alignment: .top)
+        .padding(.top, 16) //topbar와의 간격
     }
 }
+
 
 
 #Preview {
