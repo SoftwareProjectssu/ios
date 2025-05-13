@@ -14,6 +14,10 @@
 		483BA80D2DD0E5C3007C0053 /* KakaoSDKShare in Frameworks */ = {isa = PBXBuildFile; productRef = 483BA80C2DD0E5C3007C0053 /* KakaoSDKShare */; };
 		483BA8102DD0E616007C0053 /* KakaoSDKUser in Frameworks */ = {isa = PBXBuildFile; productRef = 483BA80F2DD0E616007C0053 /* KakaoSDKUser */; };
 		483BA8122DD0E620007C0053 /* KakaoSDKFriend in Frameworks */ = {isa = PBXBuildFile; productRef = 483BA8112DD0E620007C0053 /* KakaoSDKFriend */; };
+		485587DF2DD37A7500536518 /* Lottie in Frameworks */ = {isa = PBXBuildFile; productRef = 485587DE2DD37A7500536518 /* Lottie */; };
+		485587E42DD37EED00536518 /* Alamofire in Frameworks */ = {isa = PBXBuildFile; productRef = 485587E32DD37EED00536518 /* Alamofire */; };
+		485587F42DD392B200536518 /* CropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 485587F32DD392B200536518 /* CropViewController */; };
+		485587F62DD392B200536518 /* TOCropViewController in Frameworks */ = {isa = PBXBuildFile; productRef = 485587F52DD392B200536518 /* TOCropViewController */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -47,11 +51,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				483BA80B2DD0E5C3007C0053 /* KakaoSDKCommon in Frameworks */,
+				485587DF2DD37A7500536518 /* Lottie in Frameworks */,
 				483BA8122DD0E620007C0053 /* KakaoSDKFriend in Frameworks */,
+				485587F42DD392B200536518 /* CropViewController in Frameworks */,
 				483BA7E02DD0DA0D007C0053 /* Moya in Frameworks */,
+				485587E42DD37EED00536518 /* Alamofire in Frameworks */,
 				483BA8102DD0E616007C0053 /* KakaoSDKUser in Frameworks */,
 				483BA80D2DD0E5C3007C0053 /* KakaoSDKShare in Frameworks */,
 				483BA8072DD0E5C3007C0053 /* KakaoSDK in Frameworks */,
+				485587F62DD392B200536518 /* TOCropViewController in Frameworks */,
 				483BA8092DD0E5C3007C0053 /* KakaoSDKAuth in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -110,6 +118,10 @@
 				483BA80C2DD0E5C3007C0053 /* KakaoSDKShare */,
 				483BA80F2DD0E616007C0053 /* KakaoSDKUser */,
 				483BA8112DD0E620007C0053 /* KakaoSDKFriend */,
+				485587DE2DD37A7500536518 /* Lottie */,
+				485587E32DD37EED00536518 /* Alamofire */,
+				485587F32DD392B200536518 /* CropViewController */,
+				485587F52DD392B200536518 /* TOCropViewController */,
 			);
 			productName = hAIr;
 			productReference = 1EFB02C22DCB91BE002C557F /* hAIr.app */;
@@ -142,6 +154,9 @@
 			packageReferences = (
 				483BA7DE2DD0DA0D007C0053 /* XCRemoteSwiftPackageReference "Moya" */,
 				483BA8052DD0E5C3007C0053 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */,
+				485587DD2DD37A7500536518 /* XCRemoteSwiftPackageReference "lottie-ios" */,
+				485587E22DD37EED00536518 /* XCRemoteSwiftPackageReference "Alamofire" */,
+				485587F22DD392B200536518 /* XCRemoteSwiftPackageReference "TOCropViewController" */,
 			);
 			preferredProjectObjectVersion = 77;
 			productRefGroup = 1EFB02C32DCB91BE002C557F /* Products */;
@@ -391,6 +406,30 @@
 				minimumVersion = 2.24.1;
 			};
 		};
+		485587DD2DD37A7500536518 /* XCRemoteSwiftPackageReference "lottie-ios" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/airbnb/lottie-ios";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 4.5.1;
+			};
+		};
+		485587E22DD37EED00536518 /* XCRemoteSwiftPackageReference "Alamofire" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/Alamofire/Alamofire";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.10.2;
+			};
+		};
+		485587F22DD392B200536518 /* XCRemoteSwiftPackageReference "TOCropViewController" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/TimOliver/TOCropViewController";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.7.4;
+			};
+		};
 /* End XCRemoteSwiftPackageReference section */
 
 /* Begin XCSwiftPackageProductDependency section */
@@ -428,6 +467,26 @@
 			isa = XCSwiftPackageProductDependency;
 			package = 483BA8052DD0E5C3007C0053 /* XCRemoteSwiftPackageReference "kakao-ios-sdk" */;
 			productName = KakaoSDKFriend;
+		};
+		485587DE2DD37A7500536518 /* Lottie */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 485587DD2DD37A7500536518 /* XCRemoteSwiftPackageReference "lottie-ios" */;
+			productName = Lottie;
+		};
+		485587E32DD37EED00536518 /* Alamofire */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 485587E22DD37EED00536518 /* XCRemoteSwiftPackageReference "Alamofire" */;
+			productName = Alamofire;
+		};
+		485587F32DD392B200536518 /* CropViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 485587F22DD392B200536518 /* XCRemoteSwiftPackageReference "TOCropViewController" */;
+			productName = CropViewController;
+		};
+		485587F52DD392B200536518 /* TOCropViewController */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 485587F22DD392B200536518 /* XCRemoteSwiftPackageReference "TOCropViewController" */;
+			productName = TOCropViewController;
 		};
 /* End XCSwiftPackageProductDependency section */
 	};
