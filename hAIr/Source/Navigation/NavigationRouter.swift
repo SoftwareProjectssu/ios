@@ -14,6 +14,7 @@ enum Route: Hashable {
     case myHair
     case myPage
     case login
+    
 }
 
 final class NavigationRouter: ObservableObject {
