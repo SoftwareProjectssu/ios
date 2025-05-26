@@ -22,7 +22,7 @@ struct hAirtestApp: App {
                 case .login:  LoginView()
                 }
             }
-            .environmentObject(router)
+                        .environmentObject(router)
         }
     }
 }
