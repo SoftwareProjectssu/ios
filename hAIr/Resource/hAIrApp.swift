@@ -1,7 +1,7 @@
 import SwiftUI
 
 @main
-struct hAirtestApp: App {
+struct hAirApp: App {
     @StateObject private var router = NavigationRouter()
 
     var body: some Scene {
