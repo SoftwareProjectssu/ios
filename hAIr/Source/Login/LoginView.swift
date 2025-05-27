@@ -1,8 +1,9 @@
 import SwiftUI
+import Foundation
 
 struct LoginView: View {
     @EnvironmentObject var router: NavigationRouter
-
+    
     var body: some View {
         VStack(alignment: .leading) {
             loginInfo
@@ -10,7 +11,7 @@ struct LoginView: View {
         }
         .padding(.horizontal, 90)
     }
-
+    
     private var loginInfo: some View {
         VStack(alignment: .leading) {
             Image("logo")
@@ -23,24 +24,46 @@ struct LoginView: View {
             Spacer().frame(height: 180)
         }
     }
-
+    
     private var loginButton: some View {
         VStack(alignment: .center) {
             Button {
-                router.toHome()
+                KakaoAuthService.shared.handleKakaoLogin { result in
+                    switch result {
+                    case .success(let accessToken):
+                        print("✅ 카카오 로그인 성공: \(accessToken)")
+                        checkSignupStatus(token: accessToken)
+                    case .failure(let error):
+                        print("❌ 카카오 로그인 실패: \(error.localizedDescription)")
+                    }
+                }
             } label: {
                 Image("kakaologin")
                     .resizable()
                     .frame(width: 305, height: 45)
             }
             .padding(.bottom, 15)
-
+            
             Button {
                 router.toHome()
             } label: {
                 Image("applelogin")
                     .resizable()
                     .frame(width: 305, height: 45)
+            }
+        }
+    }
+    
+    func checkSignupStatus(token: String) {
+        KakaoAuthService.shared.checkKakaoRegistration(token: token) { isRegistered in
+            DispatchQueue.main.async {
+                if isRegistered {
+                    router.toHome()
+                } else {
+                    // 👉 서버 요청 전에 kakaoToken 저장 필요
+                    KeychainHelper.shared.save(token, forKey: "kakaoAccessToken")
+                    router.toSignup()
+                }
             }
         }
     }

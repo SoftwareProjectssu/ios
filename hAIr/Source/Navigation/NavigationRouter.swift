@@ -9,12 +9,11 @@ import SwiftUI
 
 /// 앱 내에서 가능한 화면(경로)를 Hashable로 정의
 enum Route: Hashable {
-    case home
-    case ai
-    case myHair
-    case myPage
+    case home, ai, myHair, myPage
+   
     case login
     
+    case signup
 }
 
 final class NavigationRouter: ObservableObject {
@@ -30,7 +29,7 @@ final class NavigationRouter: ObservableObject {
         selectedTab = .home
         //path = NavigationPath([ Route.home ])   // ← Route.home으로 명시
         isLoggedIn = true
-        path = NavigationPath() 
+        path = NavigationPath()
     }
 
     /// 로그아웃 또는 로그인 화면으로
@@ -39,6 +38,17 @@ final class NavigationRouter: ObservableObject {
         path = NavigationPath([ Route.login ])  // ← Route.login으로 명시
         isLoggedIn = false
     }
+    
+    func toSignup() {
+        self.selectedTab = .login
+        self.isLoggedIn = true
+        self.path = NavigationPath([Route.signup])
+        
+        
+        
+    }
+    
+
 
     /// 특정 경로로 이동 (탭 변경 및 스택 초기화)
     func push(_ route: Route) {

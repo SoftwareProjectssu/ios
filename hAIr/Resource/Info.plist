@@ -2,22 +2,34 @@
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>UIAppFonts</key>
-	<array>
-		<string>Pretendard-Black.otf</string>
-		<string>Pretendard-Bold.otf</string>
-		<string>Pretendard-ExtraBold.otf</string>
-		<string>Pretendard-ExtraLight.otf
+    <key>UIAppFonts</key>
+    <array>
+        <string>Pretendard-Black.otf</string>
+        <string>Pretendard-Bold.otf</string>
+        <string>Pretendard-ExtraBold.otf</string>
+        <string>Pretendard-ExtraLight.otf</string>
+        <string>Pretendard-Light.otf</string>
+        <string>Pretendard-Medium.otf</string>
+        <string>Pretendard-Regular.otf</string>
+        <string>Pretendard-SemiBold.otf</string>
+    </array>
 
-</string>
-		<string>Pretendard-Light.otf
+    <key>CFBundleURLTypes</key>
+    <array>
+        <dict>
+            <key>CFBundleURLSchemes</key>
+            <array>
+                
+                <string>kakao13d54b6fa95cfc4c7f973d2701d947bc</string>
+            </array>
+        </dict>
+    </array>
 
-Pretendard-ExtraLight.otf
-
-</string>
-		<string>Pretendard-Medium.otf</string>
-		<string>Pretendard-Regular.otf</string>
-		<string>Pretendard-SemiBold.otf</string>
-	</array>
+    <key>LSApplicationQueriesSchemes</key>
+    <array>
+        <string>kakaokompassauth</string>
+        <string>kakaolink</string>
+        <string>kakaotalk</string>
+    </array>
 </dict>
 </plist>

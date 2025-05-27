@@ -41,4 +41,10 @@ final class KakaoAuthService {
             }
         }
     }
+    func checkKakaoRegistration(token: String, completion: @escaping (Bool) -> Void) {
+        // Stubbed for testing signup flow
+        DispatchQueue.main.async {
+            completion(false)
+        }
+    }
 }
