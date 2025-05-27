@@ -54,7 +54,7 @@ struct ApplyHairView: View {
             .padding(.top, 32)
         }
         .overlay(
-            Group {
+            ZStack {
                 if showCard {
                     Color.clear
                         .contentShape(Rectangle())
@@ -65,8 +65,7 @@ struct ApplyHairView: View {
                         }
                         .zIndex(1)
 
-                    ApplyHairCardView(item: viewModel.items[viewModel.currentPage])
-                        .transition(.move(edge: .bottom))
+                    ApplyHairCardView(item: viewModel.items[viewModel.currentPage], viewModel: viewModel)                     .transition(.move(edge: .bottom))
                         .offset(y: 200)
                         .zIndex(2)
                 }
