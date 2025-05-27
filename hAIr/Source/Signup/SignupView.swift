@@ -6,6 +6,7 @@
 //
 
 import SwiftUI
+import Combine
 
 struct SignupView: View {
     @EnvironmentObject var router: NavigationRouter
@@ -16,6 +17,7 @@ struct SignupView: View {
     @State private var isLoading: Bool = false
     @State private var selectedImage: UIImage? = nil
     @State private var showImagePicker: Bool = false
+    @StateObject private var viewModel = SignupViewModel()
 
     var body: some View {
         VStack(spacing: 20) {
@@ -28,9 +30,8 @@ struct SignupView: View {
             Group {
                 customTextField(placeholder: "닉네임", text: $nickname)
                 customTextField(placeholder: "성별", text: $sex)
-                
+                customTextField(placeholder: "얼굴형", text: $faceType)
                 customTextField(placeholder: "선호하는 헤어스타일", text: $preferredStyle)
-                
             }
             // Profile Photo Picker
             Button {
@@ -62,12 +63,29 @@ struct SignupView: View {
             .padding(.bottom, 20)
 
             Button(action: {
-                router.toHome()
+                print("🚀 SignupView: Confirm button tapped")
+                isLoading = true
+                // sync ViewModel inputs
+                viewModel.nickname = nickname
+                viewModel.sex = sex
+                viewModel.faceType = faceType
+                viewModel.selectedImage = selectedImage
+
+                viewModel.signup { success in
+                    DispatchQueue.main.async {
+                        print("🔔 SignupView: signup completion returned \(success)")
+                        isLoading = false
+                        if success {
+                            print("🎉 SignupView: routing to home")
+                            router.toHome()
+                        }
+                    }
+                }
             }) {
                 Text("확인")
                     .foregroundColor(.white)
                     .frame(width: 313, height: 67)
-                    .background(Color.blue)
+                    .background(isLoading ? Color.gray : Color.blue)
                     .cornerRadius(15)
             }
             .disabled(isLoading)

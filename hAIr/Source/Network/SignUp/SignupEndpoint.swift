@@ -10,13 +10,13 @@ import Foundation
 import Moya
 
 enum SignupEndpoint {
-    case signup(data: SignupRequestDTO)
+    case signup(data: SignupRequestDTO, imageData: Data)
 }
 
 extension SignupEndpoint: TargetType {
     
     var baseURL: URL {
-        guard let url = URL(string: "https://3.34.130.175:3532") else {
+        guard let url = URL(string: "http://13.124.111.126:3532") else {
             fatalError("❌ 잘못된 baseURL입니다.")
         }
         return url
@@ -38,13 +38,29 @@ extension SignupEndpoint: TargetType {
 
     var task: Task {
         switch self {
-        case .signup(let data):
-            return .requestJSONEncodable(data)
+        case .signup(let data, let imageData):
+            var parts: [MultipartFormData] = []
+
+            // Text fields
+            parts.append(MultipartFormData(provider: .data(data.accessToken.data(using: .utf8)!), name: "accessToken"))
+            parts.append(MultipartFormData(provider: .data(data.nickname.data(using: .utf8)!),   name: "nickname"))
+            parts.append(MultipartFormData(provider: .data(data.faceType.data(using: .utf8)!),   name: "faceType"))
+            parts.append(MultipartFormData(provider: .data(data.sex.data(using: .utf8)!),        name: "sex"))
+
+            // Image
+            parts.append(MultipartFormData(
+                provider: .data(imageData),
+                name: "photo",
+                fileName: "profile.jpg",
+                mimeType: "image/jpeg"
+            ))
+
+            return .uploadMultipart(parts)
         }
     }
 
     var headers: [String : String]? {
-        return ["Content-Type": "application/json"]
+        return nil
     }
 
     var sampleData: Data {

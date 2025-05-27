@@ -16,8 +16,8 @@ final class SignupService {
 
     private init() {}
 
-    func signup(data: SignupRequestDTO, completion: @escaping (Result<Void, Error>) -> Void) {
-        provider.request(.signup(data: data)) { result in
+    func signup(data: SignupRequestDTO, imageData: Data, completion: @escaping (Result<Void, Error>) -> Void) {
+        provider.request(.signup(data: data, imageData: imageData)) { result in
             switch result {
             case .success(let response):
                 do {
