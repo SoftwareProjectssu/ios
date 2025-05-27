@@ -110,6 +110,7 @@ struct AIView: View {
                 }
 
                 // AI 추천 버튼
+                // AI 추천 버튼
                 Button(action: {
                     isNavigatingToLoading = true
                 }) {
@@ -121,7 +122,7 @@ struct AIView: View {
                         .cornerRadius(28)
                 }
                 .disabled(viewModel.selectedImage == nil)
-                .padding(.bottom, 130)
+                .padding(.bottom, 83) // 여기를 83으로 수정
 
                 Spacer()
             }
