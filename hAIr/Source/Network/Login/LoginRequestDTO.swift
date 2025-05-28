@@ -9,4 +9,6 @@ import Foundation
 
 struct LoginRequestDTO: Encodable {
     let accessToken: String
+
+   
 }

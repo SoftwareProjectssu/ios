@@ -17,7 +17,7 @@ struct SignupResponseDTO: Codable {
 struct SignupData: Codable {
     let uuid: String
     let nickname: String
-    let facetype: String
+    let faceType: String?
     let sex: String
     let representPhotoURL: String
     let token: String

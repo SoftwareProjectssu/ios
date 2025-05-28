@@ -12,8 +12,8 @@ struct LoginResponseDTO: Decodable {
     let data: LoginData
     
     struct LoginData: Decodable {
-        let userId: String
-        let nickname: String
+        let userId: String?
+        let nickname: String?
         let token: String
     }
 }

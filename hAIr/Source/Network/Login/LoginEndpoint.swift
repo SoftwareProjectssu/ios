@@ -17,7 +17,7 @@ extension LoginEndpoint: TargetType {
     
     // 기본 서버 주소
     var baseURL: URL {
-        guard let url = URL(string: "http://13.124.111.126:3532") else {
+        guard let url = URL(string: "http://3.34.130.175:3532") else {
             fatalError("❌ 잘못된 baseURL입니다.")
         }
         return url
