@@ -23,7 +23,7 @@ final class NavigationRouter: ObservableObject {
     
     /// 앱 실행 시 토큰 존재 여부 확인
     func checkIfLoggedIn() {
-        if let token = KeychainHelper.shared.get(forKey: "accessToken"), !token.isEmpty {
+        if let token = KeychainHelper.shared.get(forKey: "jwtToken"), !token.isEmpty {
             self.isLoggedIn = true
         } else {
             self.isLoggedIn = false
@@ -64,7 +64,7 @@ final class NavigationRouter: ObservableObject {
     /// 자동 로그인 시도
     /// 앱 실행 시 카카오 accessToken으로 자동 로그인 시도
     func tryAutoLogin() {
-        guard let kakaoAccessToken = KeychainHelper.shared.get(forKey: "accessToken") else {
+        guard let kakaoAccessToken = KeychainHelper.shared.get(forKey: "jwtToken") else {
             self.isLoggedIn = false
             return
         }

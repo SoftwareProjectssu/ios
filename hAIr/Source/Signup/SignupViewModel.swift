@@ -69,7 +69,8 @@ final class SignupViewModel: ObservableObject {
                         // 5️⃣ 로컬 저장
                         UserDefaults.standard.set(self.nickname, forKey: "nickname")
                         UserDefaults.standard.set(imageData, forKey: "profilePhoto")
-                        KeychainHelper.shared.save(signupResponse.data.token, forKey: "accessToken")
+                        KeychainHelper.shared.save(signupResponse.data.token, forKey: "jwtToken")
+                        UserDefaults.standard.set(true, forKey: "hasSignedUp")
                         print("🔒 SignupViewModel: saved token to Keychain")
 
                         completion(true)
