@@ -75,8 +75,12 @@ struct SignupView: View {
                                         .foregroundColor(Color("navy"))
                                 )
                         }
+                        
                     }
                     .background(Color.white)
+                    .navigationBarBackButtonHidden(true)
+                    .navigationBarHidden(true)
+                    .gesture(DragGesture())
                 }
                 .buttonStyle(.plain)
                 .sheet(isPresented: $showImagePicker, onDismiss: {
