@@ -117,7 +117,7 @@ struct AIView: View {
                 Button(action: {
                     if let image = viewModel.selectedImage,
                        let imageData = image.jpegData(compressionQuality: 0.8) {
-                        let request = PhotoRecommendRequest(imageData: imageData, fileName: "upload.jpg")
+                        let request = PhotoRecommendRequestDTO(imageData: imageData, fileName: "upload.jpg")
                         viewModel.sendImageToServer(request: request) {
                             isShowingResultView = true
                         }

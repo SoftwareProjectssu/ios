@@ -15,12 +15,12 @@ import SwiftUI
 final class KakaoAuthService {
     static let shared = KakaoAuthService()
     private init() {}
-
+    
     func handleKakaoLogin(router: NavigationRouter, completion: @escaping (Result<Void, Error>) -> Void) {
         let performLogin: (OAuthToken) -> Void = { oauthToken in
             let kakaoAccessToken = oauthToken.accessToken
             print("✅ 카카오 토큰 받아옴: \(kakaoAccessToken)")
-
+            
             // 서버에 로그인 시도 (회원가입 여부 판단 목적)
             self.checkKakaoRegistration(token: kakaoAccessToken) { isRegistered in
                 if isRegistered {
@@ -39,7 +39,7 @@ final class KakaoAuthService {
                 
             }
         }
-
+        
         if UserApi.isKakaoTalkLoginAvailable() {
             UserApi.shared.loginWithKakaoTalk { token, error in
                 if let token = token {
@@ -63,15 +63,17 @@ final class KakaoAuthService {
         LoginService.shared.login(with: dto) { result in
             DispatchQueue.main.async {
                 switch result {
-                case .success:
-                    completion(true) // 이미 가입된 유저
+                case .success(let response):
+                    // ✅ 서버가 준 JWT를 저장해야 함
+                    
+                    completion(true)
+                    
                 case .failure(let error):
                     if let moyaError = error as? MoyaError,
                        case .statusCode(let response) = moyaError,
                        response.statusCode == 400 {
                         completion(false) // 회원가입 필요
                     } else {
-                        // 네트워크 오류나 기타 이유
                         completion(false)
                     }
                 }

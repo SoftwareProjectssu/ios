@@ -26,6 +26,7 @@ final class LoginService {
                     
                     print("✅ JWT 저장됨: \(decoded.data.token)")
                     KeychainHelper.shared.save(decoded.data.token, forKey: "jwtToken")
+                    KeychainHelper.shared.save(decoded.data.token, forKey: "accessToken")
                     
                     
                     

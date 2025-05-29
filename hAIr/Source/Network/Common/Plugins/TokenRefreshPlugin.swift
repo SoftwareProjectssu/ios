@@ -15,7 +15,10 @@ final class TokenRefreshPlugin: PluginType {
         var request = request
 
         if let accessToken = KeychainHelper.shared.get(forKey: "accessToken") {
+            print("✅ TokenRefreshPlugin: 토큰 있음 → Authorization 헤더 추가")
             request.addValue("Bearer \(accessToken)", forHTTPHeaderField: "Authorization")
+        } else {
+            print("❌ TokenRefreshPlugin: accessToken 없음 → 헤더 추가 실패")
         }
 
         return request

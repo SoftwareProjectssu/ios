@@ -39,7 +39,7 @@ class AIViewModel: ObservableObject {
         completion()
     }
     
-    func sendImageToServer(request: PhotoRecommendRequest, completion: @escaping () -> Void) {
+    func sendImageToServer(request: PhotoRecommendRequestDTO, completion: @escaping () -> Void) {
         PhotoService.shared.sendPhotoForRecommendation(
             imageData: request.imageData,
             fileName: request.fileName

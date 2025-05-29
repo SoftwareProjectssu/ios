@@ -10,4 +10,5 @@ import Foundation
 
 struct PhotoRecommendResponseDTO: Decodable {
     let photoURL: String
+    let photoId: String
 }

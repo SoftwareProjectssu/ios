@@ -85,6 +85,14 @@ struct SignupView: View {
                 .buttonStyle(.plain)
                 .sheet(isPresented: $showImagePicker, onDismiss: {
                     UIApplication.shared.sendAction(#selector(UIResponder.resignFirstResponder), to: nil, from: nil, for: nil)
+                    // 👇 이 코드 추가
+                    DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+                        withAnimation {
+                            // layout 트리거용 변수 토글
+                            isLoading.toggle()
+                            isLoading.toggle()
+                        }
+                    }
                 }) {
                     ImagePicker { image, _ in
                         selectedImage = image
