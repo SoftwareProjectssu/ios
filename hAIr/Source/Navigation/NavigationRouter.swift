@@ -11,8 +11,8 @@ import SwiftUI
 enum Route: Hashable {
     case home, ai, myHair, myPage
     case login
-    case loading(image: UIImage, filename: String)
-    case result(image: UIImage)
+    
+   // case result(image: UIImage)
     case signup
 }
 
@@ -85,14 +85,14 @@ final class NavigationRouter: ObservableObject {
     }
 
     /// AI 분석 시작 시 로딩 화면으로
-    func toLoading(image: UIImage, filename: String) {
+  /*  func toLoading(image: UIImage, filename: String) {
         path.append(Route.loading(image: image, filename: filename))
-    }
+    }*/
 
     /// 분석 결과 도착 시 결과 화면으로
-    func toResult(image: UIImage) {
+   /* func toResult(image: UIImage) {
         path.append(Route.result(image: image))
-    }
+    }*/
 
     /// 특정 화면으로 이동
     func push(_ route: Route) {
