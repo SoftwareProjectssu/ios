@@ -1,6 +1,7 @@
 import SwiftUI
 
 struct DyingHairView: View {
+    @EnvironmentObject private var router: NavigationRouter
     @Environment(\.dismiss) private var dismiss
     let imageName: String    // AppliedHairCardView 에서 받아온 이름
 
@@ -25,9 +26,7 @@ struct DyingHairView: View {
             HStack(spacing: 24) {
                 ForEach(colorOptions, id: \.name) { option in
                     VStack(spacing: 8) {
-                        Button {
-                            print("\(option.name) 버튼 탭됨")
-                        } label: {
+                        NavigationLink(destination: AfterDyeView()) {
                             Circle()
                                 .stroke(option.color == .white ? Color.buttongray : option.color, lineWidth: 2)
                                 .background(

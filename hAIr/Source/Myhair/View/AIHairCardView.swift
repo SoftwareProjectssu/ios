@@ -8,10 +8,10 @@
 import SwiftUI
 
 struct AIHairCardView: View {
+    @EnvironmentObject private var router: NavigationRouter
     let imageName: String
     let title: String
     let onDismiss: (() -> Void)?
-
     
     var body: some View {
         VStack(spacing: 16) {
@@ -27,9 +27,7 @@ struct AIHairCardView: View {
                         .foregroundColor(.black)
                 }
                 Spacer()
-                Button(action: {
-                    // 염색하기 기능 실행
-                }) {
+                    NavigationLink(destination: AfterApplyView()){
                     Text("적용하기")
                         .font(.pretendard(.medium, size: 14))
                         .foregroundColor(.black)
