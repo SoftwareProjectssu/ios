@@ -15,7 +15,7 @@ struct HairGridView: View {
                 Image(hair.imageName)
                     .resizable()
                     .scaledToFill()
-                    .frame(height: 132)
+                    .frame(width: 112, height: 132)
                     .clipped()
                     .cornerRadius(4)
                     .onTapGesture {
