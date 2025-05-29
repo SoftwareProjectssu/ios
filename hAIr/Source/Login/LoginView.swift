@@ -11,9 +11,6 @@ struct LoginView: View {
             loginButton
         }
         .padding(.horizontal, 90)
-        .navigationBarBackButtonHidden(true)
-        .navigationBarHidden(true)
-        .gesture(DragGesture())
     }
 
     private var loginInfo: some View {
@@ -71,7 +68,6 @@ struct LoginView: View {
                     .frame(width: 305, height: 45)
             }
         }
-        
     }
 }
 

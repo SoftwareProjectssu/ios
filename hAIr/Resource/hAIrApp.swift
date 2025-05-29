@@ -10,21 +10,19 @@ import KakaoSDKUser
 @main
 struct hAIrApp: App {
     @StateObject private var router = NavigationRouter()
-    
+
     init() {
         KakaoSDK.initSDK(appKey: "13d54b6fa95cfc4c7f973d2701d947bc")
     }
-    
+
     var body: some Scene {
         WindowGroup {
             NavigationStack(path: $router.path) {
                 Group {
-                    if !router.hasInitialized {
-                        SplashView()
-                    } else if router.isLoggedIn {
+                    if router.isLoggedIn {
                         TabbarView()
                     } else {
-                        LoginView()
+                        SplashView()  // ✅ 앱 시작 시 보여지는 스플래시 뷰
                     }
                 }
                 .navigationDestination(for: Route.self) { route in
@@ -47,4 +45,3 @@ struct hAIrApp: App {
         }
     }
 }
-

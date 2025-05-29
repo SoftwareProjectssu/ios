@@ -32,7 +32,7 @@ final class SignupViewModel: ObservableObject {
         // 1️⃣ 입력 검증
         guard let image = selectedImage,
               let imageData = image.jpegData(compressionQuality: 0.8),
-              let kakaoToken = KeychainHelper.shared.get(forKey: "accessToken")
+              let kakaoToken = KeychainHelper.shared.get(forKey: "kakaoAccessToken")
         else {
             self.errorMessage = "모든 필드를 입력하고 프로필 사진을 선택해주세요."
             print("🚫 SignupViewModel: validation failed")
