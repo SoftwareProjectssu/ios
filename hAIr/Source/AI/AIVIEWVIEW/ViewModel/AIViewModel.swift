@@ -13,6 +13,9 @@ class AIViewModel: ObservableObject {
     @Published var showSourceActionSheet = false
     @Published var selectedImage: UIImage? = nil
     @Published var pickerSource: UIImagePickerController.SourceType = .photoLibrary
+    @Published var selectedFileName: String? = nil
+    @Published var resultPhotoURL: String? = nil
+    
 
     func presentCamera() {
         pickerSource = .camera
@@ -30,4 +33,28 @@ class AIViewModel: ObservableObject {
         showSourceActionSheet = false
         pickerSource = .photoLibrary
     }
+    
+    func handlePhotoUploadResult(_ photoURL: String, completion: @escaping () -> Void) {
+        self.resultPhotoURL = photoURL
+        completion()
+    }
+    
+    func sendImageToServer(request: PhotoRecommendRequest, completion: @escaping () -> Void) {
+        PhotoService.shared.sendPhotoForRecommendation(
+            imageData: request.imageData,
+            fileName: request.fileName
+            
+        ) { result in
+            switch result {
+            case .success(let response):
+                print("✅ 업로드 성공:", response.photoURL)
+                self.handlePhotoUploadResult(response.photoURL, completion: completion)
+            case .failure(let error):
+                print("❌ 업로드 실패:", error.localizedDescription)
+            }
+        }
+    }
+
 }
+
+    

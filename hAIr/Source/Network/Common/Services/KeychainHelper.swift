@@ -19,17 +19,29 @@ class KeychainHelper {
     // Keychain에 데이터 저장
     func save(_ value: String, forKey key: String) {
         let data = value.data(using: .utf8)!
-        let query: [String: Any] = [
+
+        // 먼저 기존 항목 삭제 (이 쿼리로)
+        let deleteQuery: [String: Any] = [
+            kSecClass as String: kSecClassGenericPassword,
+            kSecAttrAccount as String: key
+        ]
+        SecItemDelete(deleteQuery as CFDictionary)
+
+        // 새로운 값 추가
+        let addQuery: [String: Any] = [
             kSecClass as String: kSecClassGenericPassword,
             kSecAttrAccount as String: key,
-            kSecValueData as String: data
+            kSecValueData as String: data,
+            kSecAttrAccessible as String: kSecAttrAccessibleAfterFirstUnlock
         ]
-        
-        // 기존 값이 있으면 업데이트, 없으면 추가
-        SecItemDelete(query as CFDictionary)
-        SecItemAdd(query as CFDictionary, nil)
+
+        let status = SecItemAdd(addQuery as CFDictionary, nil)
+        if status == errSecSuccess {
+            print("✅ Keychain 저장 성공")
+        } else {
+            print("❌ Keychain 저장 실패, status: \(status)")
+        }
     }
-    
     // Keychain에서 데이터 가져오기
     func get(forKey key: String) -> String? {
         let query: [String: Any] = [
@@ -44,6 +56,8 @@ class KeychainHelper {
         
         if status == errSecSuccess, let data = dataTypeRef as? Data {
             return String(data: data, encoding: .utf8)
+        } else {
+            print("❌ Keychain get 실패: \(status)") // 🔍 이 줄 추가
         }
         
         return nil

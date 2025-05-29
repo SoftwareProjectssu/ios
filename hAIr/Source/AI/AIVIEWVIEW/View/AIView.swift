@@ -1,8 +1,9 @@
 import SwiftUI
 import PhotosUI
 
+
 struct ImagePicker: UIViewControllerRepresentable {
-    var onImagePicked: (UIImage) -> Void
+    var onImagePicked: (UIImage, String) -> Void
 
     func makeCoordinator() -> Coordinator {
         Coordinator(onImagePicked: onImagePicked)
@@ -19,15 +20,19 @@ struct ImagePicker: UIViewControllerRepresentable {
     func updateUIViewController(_ uiViewController: UIImagePickerController, context: Context) {}
 
     class Coordinator: NSObject, UINavigationControllerDelegate, UIImagePickerControllerDelegate {
-        let onImagePicked: (UIImage) -> Void
+        let onImagePicked: (UIImage, String) -> Void
 
-        init(onImagePicked: @escaping (UIImage) -> Void) {
+        init(onImagePicked: @escaping (UIImage, String) -> Void) {
             self.onImagePicked = onImagePicked
         }
 
         func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
             if let image = info[.originalImage] as? UIImage {
-                onImagePicked(image)
+                var fileName = "upload.jpg"
+                if let imageURL = info[.imageURL] as? URL {
+                    fileName = imageURL.lastPathComponent
+                }
+                onImagePicked(image, fileName)
             }
             picker.dismiss(animated: true)
         }
@@ -39,10 +44,9 @@ struct ImagePicker: UIViewControllerRepresentable {
 }
 
 struct AIView: View {
-    @StateObject private var viewModel = AIViewModel()
+    @StateObject private var viewModel: AIViewModel = AIViewModel()
     @State private var rawImage: UIImage? = nil
     @State private var isCropping: Bool = false
-    @State private var isNavigatingToLoading = false
     @State private var isShowingResultView = false
 
     var body: some View {
@@ -110,9 +114,14 @@ struct AIView: View {
                 }
 
                 // AI 추천 버튼
-                // AI 추천 버튼
                 Button(action: {
-                    isNavigatingToLoading = true
+                    if let image = viewModel.selectedImage,
+                       let imageData = image.jpegData(compressionQuality: 0.8) {
+                        let request = PhotoRecommendRequest(imageData: imageData, fileName: "upload.jpg")
+                        viewModel.sendImageToServer(request: request) {
+                            isShowingResultView = true
+                        }
+                    }
                 }) {
                     Text("AI에게 머리 추천 받기")
                         .font(.pretendard(.semibold, size: 16))
@@ -127,8 +136,9 @@ struct AIView: View {
                 Spacer()
             }
             .sheet(isPresented: $viewModel.isImagePickerPresented) {
-                ImagePicker { image in
+                ImagePicker { image, fileName in
                     rawImage = image
+                    viewModel.selectedFileName = fileName
                     isCropping = true
                 }
             }
@@ -139,13 +149,12 @@ struct AIView: View {
                     }
                 }
             }
-            .navigationDestination(isPresented: $isNavigatingToLoading) {
-                LoadingView {
-                    isShowingResultView = true
-                }
-            }
             .navigationDestination(isPresented: $isShowingResultView) {
-                AIResultView()
+                if let photoURL = viewModel.resultPhotoURL {
+                    AIResultView(photoURL: photoURL)
+                } else {
+                    Text("결과를 불러오지 못했습니다.")
+                }
             }
         }
     }
@@ -154,3 +163,4 @@ struct AIView: View {
 #Preview {
     AIView()
 }
+

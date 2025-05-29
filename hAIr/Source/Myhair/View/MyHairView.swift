@@ -32,17 +32,28 @@ struct MyHairView: View {
         .overlay(
             ZStack {
                 if showCard, let hair = selectedHair {
-                  
-                    // 2) 중앙 팝업 카드
-                    HairCardView(
-                        imageName: hair.imageName,
-                        title: hair.title,
-                        onDismiss: {
-                            withAnimation(.easeInOut) { showCard = false }
-                        }
-                    )
-                    .frame(width: 400, height: 500)      // 원하는 크기로 고정
-                    .transition(.scale)                  // 팝업 애니메이션
+                    switch vm.selectedTab {
+                    case .aihair:
+                        AIHairCardView(
+                            imageName: hair.imageName,
+                            title: hair.title,
+                            onDismiss: {
+                                withAnimation(.easeInOut) { showCard = false }
+                            }
+                        )
+                        .frame(width: 400, height: 500)
+                        .transition(.scale)
+                    case .applyhair:
+                        AppliedHairCardView(
+                            imageName: hair.imageName,
+                            title: hair.title,
+                            onDismiss: {
+                                withAnimation(.easeInOut) { showCard = false }
+                            }
+                        )
+                        .frame(width: 400, height: 500)
+                        .transition(.scale)
+                    }
                 }
             }
         )
