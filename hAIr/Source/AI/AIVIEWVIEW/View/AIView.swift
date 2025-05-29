@@ -45,7 +45,7 @@ struct ImagePicker: UIViewControllerRepresentable {
 
 struct AIView: View {
     @EnvironmentObject var router: NavigationRouter
-    @StateObject private var viewModel: AIViewModel = AIViewModel()
+    @ObservedObject var viewModel: AIViewModel
     @State private var rawImage: UIImage? = nil
     @State private var isCropping: Bool = false
     @State private var isShowingResultView = false
@@ -120,7 +120,7 @@ struct AIView: View {
                        let imageData = image.jpegData(compressionQuality: 0.8) {
                         let request = PhotoRecommendRequestDTO(imageData: imageData, fileName: "upload.jpg")
                         viewModel.sendImageToServer(request: request) {
-                            viewModel.selectedImage = image
+                            
                             router.resultImage = image
                             router.aiState = .result
                         }
@@ -156,6 +156,3 @@ struct AIView: View {
     }
 }
 
-#Preview {
-    AIView()
-}

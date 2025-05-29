@@ -8,7 +8,7 @@ import SwiftUI
 struct AIResultView: View {
     @EnvironmentObject var router: NavigationRouter
     @ObservedObject var viewModel: AIViewModel
-    let selectedImage: UIImage?
+
 
     var body: some View {
         VStack(spacing: 16) {
@@ -17,13 +17,16 @@ struct AIResultView: View {
                 .fontWeight(.bold)
                 .padding(.top, 32)
 
-            if let image = selectedImage ?? viewModel.selectedImage {
+            if let image = viewModel.selectedImage {
                 Image(uiImage: image)
                     .resizable()
                     .scaledToFill()
                     .frame(width: 300, height: 300)
                     .clipped()
                     .cornerRadius(10)
+            } else {
+                Text("이미지가 없습니다")
+                    .foregroundColor(.red)
             }
 
             Spacer().frame(height: 40)

@@ -36,9 +36,34 @@ class AIViewModel: ObservableObject {
     
     func handlePhotoUploadResult(_ photoURL: String, completion: @escaping () -> Void) {
         self.resultPhotoURL = photoURL
-        completion()
+        print("📡 추천 이미지 URL:", photoURL)
+
+        guard let url = URL(string: photoURL) else {
+            print("❌ URL 생성 실패")
+            completion()
+            return
+        }
+
+        URLSession.shared.dataTask(with: url) { data, response, error in
+            if let httpResponse = response as? HTTPURLResponse {
+                print("📥 응답 코드:", httpResponse.statusCode)
+            }
+            print("📦 받은 데이터 크기:", data?.count ?? -1)
+
+            if let data = data, let image = UIImage(data: data) {
+                DispatchQueue.main.async {
+                    self.selectedImage = image
+                    print("✅ 이미지 변환 성공 → selectedImage에 저장 완료")
+                    completion()
+                }
+            } else {
+                print("❌ 이미지 다운로드 또는 변환 실패:", error?.localizedDescription ?? "unknown")
+                DispatchQueue.main.async {
+                    completion()
+                }
+            }
+        }.resume()
     }
-    
     func sendImageToServer(request: PhotoRecommendRequestDTO, completion: @escaping () -> Void) {
         PhotoService.shared.sendPhotoForRecommendation(
             imageData: request.imageData,

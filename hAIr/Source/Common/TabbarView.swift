@@ -56,9 +56,9 @@ struct TabbarView: View {
             case .ai:
                 switch router.aiState {
                 case .main:
-                    AIView()
+                    AIView(viewModel: aiViewModel)
                 case .result:
-                    AIResultView(viewModel: aiViewModel, selectedImage: aiViewModel.selectedImage)
+                    AIResultView(viewModel: aiViewModel)
                 }
             case .myHair:
                 MyHairView()

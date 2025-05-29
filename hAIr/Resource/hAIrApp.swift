@@ -10,6 +10,7 @@ import KakaoSDKUser
 @main
 struct hAIrApp: App {
     @StateObject private var router = NavigationRouter()
+    @StateObject private var aiViewModel = AIViewModel()
     
     init() {
         KakaoSDK.initSDK(appKey: "13d54b6fa95cfc4c7f973d2701d947bc")
@@ -30,7 +31,7 @@ struct hAIrApp: App {
                 .navigationDestination(for: Route.self) { route in
                     switch route {
                     case .home: HomeView()
-                    case .ai: AIView()
+                    case .ai: AIView(viewModel: aiViewModel)
                     case .myHair: MyHairView()
                     case .myPage: MyPageView()
                     case .login: LoginView()
@@ -47,4 +48,3 @@ struct hAIrApp: App {
         }
     }
 }
-
