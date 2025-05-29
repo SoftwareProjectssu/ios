@@ -5,7 +5,7 @@
 //  Created by 소민준 on 5/13/25.
 //
 
-import SwiftUI
+/*import SwiftUI
 
 struct HairApplyingView: View {
     @ObservedObject var viewModel: AIHairViewModel
@@ -37,4 +37,4 @@ struct HairApplyingView: View {
         }
         .navigationBarBackButtonHidden(true)
     }
-}
+}*/

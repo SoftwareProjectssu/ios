@@ -1,9 +1,11 @@
 // TabbarView.swift
 
 import SwiftUI
+import Foundation
 
 struct TabbarView: View {
     @EnvironmentObject var router: NavigationRouter
+    @StateObject private var aiViewModel = AIViewModel()
 
     private let tabs:   [Route] = [.home, .ai, .myHair, .myPage]
     private let icons = ["home", "ai", "myhair", "mypage"]
@@ -49,10 +51,19 @@ struct TabbarView: View {
     private var contentView: some View {
         if let index = tabs.firstIndex(of: router.selectedTab) {
             switch tabs[index] {
-            case .home:    HomeView()
-            case .ai:      AIView()
-            case .myHair:  MyHairView()
-            case .myPage:  MyPageView()
+            case .home:
+                HomeView()
+            case .ai:
+                switch router.aiState {
+                case .main:
+                    AIView()
+                case .result:
+                    AIResultView(viewModel: aiViewModel, selectedImage: aiViewModel.selectedImage)
+                }
+            case .myHair:
+                MyHairView()
+            case .myPage:
+                MyPageView()
             @unknown default:
                 EmptyView()
             }

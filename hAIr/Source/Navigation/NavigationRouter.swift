@@ -11,10 +11,19 @@ import SwiftUI
 enum Route: Hashable {
     case home, ai, myHair, myPage
     case login
+    case loading(image: UIImage, filename: String)
+    case result(image: UIImage)
     case signup
 }
 
 final class NavigationRouter: ObservableObject {
+    enum AITabState {
+        case main
+        case result
+    }
+
+    @Published var aiState: AITabState = .main
+    @Published var resultImage: UIImage? = nil
     @Published var isLoggedIn: Bool = false
     @Published var path = NavigationPath()
     @Published var selectedTab: Route = .home
@@ -73,6 +82,16 @@ final class NavigationRouter: ObservableObject {
     func toSignup() {
         selectedTab = .signup
         path = NavigationPath([ Route.signup ])
+    }
+
+    /// AI 분석 시작 시 로딩 화면으로
+    func toLoading(image: UIImage, filename: String) {
+        path.append(Route.loading(image: image, filename: filename))
+    }
+
+    /// 분석 결과 도착 시 결과 화면으로
+    func toResult(image: UIImage) {
+        path.append(Route.result(image: image))
     }
 
     /// 특정 화면으로 이동

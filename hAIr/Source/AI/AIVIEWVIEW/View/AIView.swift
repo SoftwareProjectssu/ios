@@ -44,6 +44,7 @@ struct ImagePicker: UIViewControllerRepresentable {
 }
 
 struct AIView: View {
+    @EnvironmentObject var router: NavigationRouter
     @StateObject private var viewModel: AIViewModel = AIViewModel()
     @State private var rawImage: UIImage? = nil
     @State private var isCropping: Bool = false
@@ -119,7 +120,9 @@ struct AIView: View {
                        let imageData = image.jpegData(compressionQuality: 0.8) {
                         let request = PhotoRecommendRequestDTO(imageData: imageData, fileName: "upload.jpg")
                         viewModel.sendImageToServer(request: request) {
-                            isShowingResultView = true
+                            viewModel.selectedImage = image
+                            router.resultImage = image
+                            router.aiState = .result
                         }
                     }
                 }) {
@@ -149,13 +152,6 @@ struct AIView: View {
                     }
                 }
             }
-            .navigationDestination(isPresented: $isShowingResultView) {
-                if let photoURL = viewModel.resultPhotoURL {
-                    AIResultView(photoURL: photoURL)
-                } else {
-                    Text("결과를 불러오지 못했습니다.")
-                }
-            }
         }
     }
 }
@@ -163,4 +159,3 @@ struct AIView: View {
 #Preview {
     AIView()
 }
-
