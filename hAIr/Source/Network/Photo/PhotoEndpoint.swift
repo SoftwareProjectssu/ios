@@ -9,7 +9,7 @@ enum PhotoEndpoint {
 
 extension PhotoEndpoint: TargetType {
     var baseURL: URL {
-        return URL(string: "http://3.34.130.175:3532")!
+        return URL(string: "http://13.209.40.211:3532")!
     }
 
     var path: String {

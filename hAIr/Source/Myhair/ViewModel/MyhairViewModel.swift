@@ -22,14 +22,15 @@ final class MyHairViewModel: ObservableObject {
             HairModel(imageName: "trend3", title: "리프컷"),
             HairModel(imageName: "trend4", title: "히피펌"),
             HairModel(imageName: "trend5", title: "크롭컷"),
-            HairModel(imageName: "trend6", title: "포마드"),
             HairModel(imageName: "trend7", title: "투블럭"),
             HairModel(imageName: "trend8", title: "쉐도우펌"),
             HairModel(imageName: "trend9", title: "애즈펌"),
-            HairModel(imageName: "trend10", title: "댄디컷")
+            HairModel(imageName: "trend10", title: "댄디컷"),
+            HairModel(imageName: "trend6", title: "포마드")
+
         ]
         let applied: [HairModel] = [
-            HairModel(imageName: "trend6", title: "포마드")
+            HairModel(imageName: "applyimage", title: "포마드")
 //            HairModel(imageName: "apply1", title: "히피펌"),
 //            HairModel(imageName: "apply2", title: "단발 레이어드컷"),
 //            HairModel(imageName: "apply3", title: "단발 c컬"),

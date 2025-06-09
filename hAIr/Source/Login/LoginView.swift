@@ -62,7 +62,7 @@ struct LoginView: View {
             })
             .padding(.bottom, 15)
 
-            // ✅ 애플 로그인 버튼 (예시)
+            // 애플 로그인 버튼 (예시)
             Button {
                 router.toHome()
             } label: {

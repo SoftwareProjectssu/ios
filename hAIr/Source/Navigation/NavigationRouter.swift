@@ -11,6 +11,7 @@ import SwiftUI
 enum Route: Hashable {
     case home, ai, myHair, myPage
     case login
+
     
    // case result(image: UIImage)
     case signup
