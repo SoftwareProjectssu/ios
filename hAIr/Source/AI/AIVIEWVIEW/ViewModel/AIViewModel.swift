@@ -15,6 +15,7 @@ class AIViewModel: ObservableObject {
     @Published var pickerSource: UIImagePickerController.SourceType = .photoLibrary
     @Published var selectedFileName: String? = nil
     @Published var resultPhotoURL: String? = nil
+    @Published var isLoading = false
     
 
     func presentCamera() {
